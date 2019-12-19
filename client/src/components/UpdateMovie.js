@@ -13,15 +13,27 @@ const initialMovie = {
 const UpdateMovie = props => {
   const [movie, setMovie] = useState(initialMovie);
   console.log("UpdateMovie props", props);
-
-  // TODO: useEffect()
+  const movieID = props.match.params.id;
 
   useEffect( () => {
-    const movieToEdit = props.movies.find(
-      movie => `${movie.id}` === props.match.params.id
-    );
-  }, [props.movies, props.match.movies.id])
-
+    axios
+      .get(`http://localhost:5000/api/movies/${movieID}`)
+      .then ( res => {
+        console.log(res.data);
+        setMovie ({
+          ...movie,
+          id: res.data.id,
+          title: res.data.id,
+          director: res.data.director,
+          metascore: res.data.metascore,
+          star1: res.data.stars[0],
+          star2: res.data.stars[1],
+          star3: res.data.stars[2]
+        })
+      })
+      .catch( err=>console.error(err) );
+  }, []);
+        
   const changeHandler = e => {
     e.persist(); //TODO: Find out what this does
     setMovie({
@@ -33,7 +45,8 @@ const UpdateMovie = props => {
   const submitHandler = e => {
     e.preventDefault();
     axios
-      .put(`http://localhost/movies/${movie.id}`, {
+      .put(`http://localhost:5000/api/movies/${movieID}`, {
+        id: movie.id,
         title: movie.title,
         director: movie.director,
         metascore: movie.metascore,
