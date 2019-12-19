@@ -1,0 +1,7 @@
+get http://localhost:5000/api/movies
+
+###
+
+get http://localhost:5000/api/movies/2
+
+
