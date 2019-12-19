@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const initialMovie = {
+  id: "",
   title: "",
   director: "",
-  metascore: "",  // TODO: Convert to number
+  metascore: "",
   star1: "",
   star2: "",
   star3: ""
@@ -12,7 +13,6 @@ const initialMovie = {
 
 const UpdateMovie = props => {
   const [movie, setMovie] = useState(initialMovie);
-  console.log("UpdateMovie props", props);
   const movieID = props.match.params.id;
 
   useEffect( () => {
@@ -21,9 +21,9 @@ const UpdateMovie = props => {
       .then ( res => {
         console.log(res.data);
         setMovie ({
-          ...movie,
+          // ...movie,
           id: res.data.id,
-          title: res.data.id,
+          title: res.data.title,
           director: res.data.director,
           metascore: res.data.metascore,
           star1: res.data.stars[0],
@@ -32,7 +32,7 @@ const UpdateMovie = props => {
         })
       })
       .catch( err=>console.error(err) );
-  }, []);
+  }, [movieID]);
         
   const changeHandler = e => {
     e.persist(); //TODO: Find out what this does
@@ -54,67 +54,86 @@ const UpdateMovie = props => {
       })
       .then( res => {
         console.log(res);
-        // TODO: props.[update local copy of data]
-        props.history.push(`/movies`);
+        props.history.push(`/`);
       })
       .catch( err => console.error(err));
   }
 
   return (
-    <div>
-    <h2>Update Movie</h2>
-    <form onSubmit={submitHandler}>
-      <input
-        type="text"
-        name="title"
-        onChange={changeHandler}
-        placeholder="Title"
-        value={movie.title}
-      />
+    <div className="save-wrapper">
+      <div className="movie-card update">
+        <h2>Update Movie</h2>
+        <form onSubmit={submitHandler}>
+          <label for="title">
+            <span>Title</span>
+            <input
+              type="text"
+              name="title"
+              onChange={changeHandler}
+              placeholder="Title"
+              value={movie.title}
+            />
+          </label>
 
-      <input
-        type="text"
-        name="director"
-        onChange={changeHandler}
-        placeholder="Director"
-        value={movie.director}
-      />
+          <label for="director">
+            <span>Director</span>
+            <input
+              type="text"
+              name="director"
+              onChange={changeHandler}
+              placeholder="Director"
+              value={movie.director}
+            />
+          </label>
 
-      <input
-        type="number"
-        name="metascore"
-        onChange={changeHandler}
-        placeholder="Metascore"
-        value={movie.metascore}
-      />
+          <label for="metascore">
+            <span>Metascore</span>
+            <input
+              type="number"
+              name="metascore"
+              onChange={changeHandler}
+              placeholder="Metascore"
+              value={movie.metascore}
+            />
+          </label>
 
-      <input
-        type="string"
-        name="star1"
-        onChange={changeHandler}
-        placeholder="Star 1"
-        value={movie.star1}
-      />
+          <label for="star1">
+            <span>Star 1</span>
+            <input
+              type="string"
+              name="star1"
+              onChange={changeHandler}
+              placeholder="Star 1"
+              value={movie.star1}
+            />
+          </label>
 
-      <input
-        type="string"
-        name="star2"
-        onChange={changeHandler}
-        placeholder="Star 1"
-        value={movie.star2}
-      />
+          <label for="star2">
+            <span>Star 2</span>
+            <input
+              type="string"
+              name="star2"
+              onChange={changeHandler}
+              placeholder="Star 1"
+              value={movie.star2}
+            />
+          </label>
 
-      <input
-        type="string"
-        name="star3"
-        onChange={changeHandler}
-        placeholder="Star 3"
-        value={movie.star3}
-      />
+          <label for="star3">
+            <span>Star 3</span>
+            <input
+              type="string"
+              name="star3"
+              onChange={changeHandler}
+              placeholder="Star 3"
+              value={movie.star3}
+           />
+          </label>
 
-      <button className="form-button">Update</button>
-    </form>
-  </div>
+          <button className="form-button">Update</button>
+        </form>
+      </div>
+    </div>
   )
 
 
