@@ -53,15 +53,29 @@ body {
   width: 75%;
   margin: 1rem auto;
 }
-.save-button {
+.save-button, .edit-button, .delete-button {
   position: absolute;
   top: 25px;
   right: 25px;
   border: 1px solid grey;
   padding: 5px 10px;
   background-color: lightseagreen;
+  cursor: pointer;
 }
-.save-button:hover {
+.save-button {
+  top: 25px;
+  right: 25px;
+}
+.edit-button {
+  top: 150px;
+  right: 25px;
+}
+.delete-button {
+  top: 200px;
+  right: 25px;
+}
+
+.save-button:hover, .edit-button:hover, .delete-button:hover {
   background-color: green;
   color: white;
 }
